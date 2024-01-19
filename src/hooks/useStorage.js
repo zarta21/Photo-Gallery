@@ -6,7 +6,7 @@ import { collection, serverTimestamp, addDoc } from "firebase/firestore";
 const useStorage = (file) => {
     const [progress, setProgress] = useState(0);
     const [error, setError] = useState(null);
-    const [url, setUrl] = useState(null);
+    const [urls, setUrls] = useState(null);
 
     useEffect(() => {
         const storageRef = ref(projectStorage, file.name);
@@ -19,19 +19,19 @@ const useStorage = (file) => {
         }, (err) => {
             setError(err);
         }, async () => {
-               const url = await getDownloadURL(upload.snapshot.ref)
-                let token = url;
+               const urls = await getDownloadURL(upload.snapshot.ref)
+                let token = urls;
 
             addDoc(collectionRef, {
                 createdAt: serverTimestamp(),
                 adress: token
             });
 
-            setUrl(url);
+            setUrls(prevState) => [...prevState, urls]);
         })
     }, [file])
 
-    return {progress, url, error}
+    return {progress, urls, error}
 }
 
 export default useStorage;
