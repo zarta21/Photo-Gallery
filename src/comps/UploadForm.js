@@ -12,14 +12,12 @@ const UploadForm = () => {
 
         for (let i = 0; i < e.target.files.length; i++) {
             let selected = e.target.files[i];
-            // selected["id"] = Math.random();
             if (selected && types.includes(selected.type)) {
                 setFiles([...e.target.files]);
                 setError("");
             } else {
                 setFiles([]);
                 setError("Please select .jpeg image file");
-                // alert("Please select .jpeg image file")
             }
         }
     }
